@@ -1,7 +1,7 @@
 package source;
 
 import position.Position;
-import tad_lista_de_nodos.PositionList;
+import position.PositionList;
 
 // Classe que implementa um nodo de uma árvore armazenando referências à um
 // elemento, à um nodo pai, à um nodo esquerdo, e à um nodo direito.

@@ -1,6 +1,6 @@
 package source;
 import position.Position;
-import tad_lista_de_nodos.PositionList;
+import position.PositionList;
 
 // Interface para um nodo de uma árvore. O nodo da árvore
 // mantêm um elemento, um nodo pai, um nodo para a filhos

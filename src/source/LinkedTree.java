@@ -5,9 +5,12 @@ import exceptions.BoundaryViolationException;
 import exceptions.EmptyTreeException;
 import exceptions.InvalidPositionException;
 import exceptions.NonEmptyTreeException;
+import position.ElementIterator;
 import position.Position;
-import tad_lista_de_nodos.NodePositionList;
-import tad_lista_de_nodos.PositionList;
+import position.NodePositionList;
+import position.PositionList;
+
+import static javafx.scene.input.KeyCode.T;
 
 //Um classe para a árvore ligada onde os nodos têm um número arbitrário de filhos.
 public class LinkedTree<E> implements Tree<E> {
@@ -38,7 +41,7 @@ public class LinkedTree<E> implements Tree<E> {
     // Retorna se um nodo é externo
     public boolean isExternal(Position<E> v) throws InvalidPositionException {
         TreePosition<E> vv = checkPosition(v);
-        return (vv.getChildren() == null) || vv.getChildren().isEmpty();
+        return (vv.getChildren() == null) || (vv.getChildren().isEmpty());
     }
 
     // Retorna se um nodo é a raíz
@@ -62,7 +65,7 @@ public class LinkedTree<E> implements Tree<E> {
     }
 
     // Retorna uma coleção iterável dos filhos de um nodo
-    public Iterable<Position<E>> children(Position<E> v) throws InvalidPositionException {
+    public Iterable children(Position<E> v) throws InvalidPositionException {
         TreePosition<E> vv = checkPosition(v);
         return vv.getChildren();
     }
@@ -124,18 +127,12 @@ public class LinkedTree<E> implements Tree<E> {
 // ordenado de acordo com a travessia das subárvores
     protected void preorderPositions(Position<E> v, PositionList<Position<E>> pos) throws InvalidPositionException {
         pos.addLast(v);
-        for (Position<E> w : children(v)) preorderPositions(w, pos);
-    }
 
-    public String toString() {
-        return toString(this);
-    }
+
 
     public static <E> String toString(LinkedTree<E> T) {
         String s = "";
-        for (E i : T) {
-            s += ", " + i;
-        }
+        for (E i : T) { s += ", " + i; }
 // OU
 // for (Iterator<String> it = T.iterator(); it.hasNext();) {
 // s += ", " + it.next();
@@ -143,4 +140,43 @@ public class LinkedTree<E> implements Tree<E> {
         s = (s.length() == 0 ? s : s.substring(2));
         return "[" + s + "]";
     }
+
+
+        public String parentheticRepresentation(TreeNode<E> T, Position<E> v) {
+        String s = v.element().toString();
+        if (T.isInternal(v)) {
+            Boolean firstTime = true;
+            for (Position<E> w : T.children(v)) {
+                if (firstTime) {
+                    s += "(\n" + parentheticRepresentation(T, w);
+                    firstTime = false;
+                } else {
+                    s += "," + parentheticRepresentation(T, w);
+                }
+                s += ")";
+            }
+        }
+        return s;
+    }
+
+    public int depth(LinkedTree T, TreeNode v) {
+        if (v == (TreeNode) T.root()) {return 0;}
+
+        TreeNode w = (TreeNode) v.getParent();
+        return depth(T, w);
+
+    }
+
+    public Object toStringPostorder(LinkedTree T, TreePosition v) {
+        Iterable w = T.positions();
+        for (Object pos : w) {
+
+
+        }
+    return v.element();
+    }
+
+
+
+
 }
