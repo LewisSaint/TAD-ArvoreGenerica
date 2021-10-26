@@ -127,36 +127,37 @@ public class LinkedTree<E> implements Tree<E> {
 // ordenado de acordo com a travessia das subárvores
     protected void preorderPositions(Position<E> v, PositionList<Position<E>> pos) throws InvalidPositionException {
         pos.addLast(v);
-
-
-
-    public static <E> String toString(LinkedTree<E> T) {
-        String s = "";
-        for (E i : T) { s += ", " + i; }
-// OU
-// for (Iterator<String> it = T.iterator(); it.hasNext();) {
-// s += ", " + it.next();
-// }
-        s = (s.length() == 0 ? s : s.substring(2));
-        return "[" + s + "]";
     }
 
 
-        public String parentheticRepresentation(TreeNode<E> T, Position<E> v) {
-        String s = v.element().toString();
-        if (T.isInternal(v)) {
-            Boolean firstTime = true;
-            for (Position<E> w : T.children(v)) {
-                if (firstTime) {
-                    s += "(\n" + parentheticRepresentation(T, w);
-                    firstTime = false;
-                } else {
-                    s += "," + parentheticRepresentation(T, w);
-                }
-                s += ")";
+
+    public String toString(LinkedTree<String> Tree) {
+        String s = "";
+        for (String i : Tree) { s += ", " + i; }
+// OU
+// for t();) {
+// s += ", " + it.next();(Iterator<String> it = T.iterator(); it.hasNex
+// }
+        s = (s.length() == 0 ? s : s.substring(2));
+        return "[" + s.toString() + "]";
+    }
+
+
+    public String parentheticRepresentation(Tree<E> T, Position<E> v) {
+    String s = v.element().toString();
+    if (T.isInternal(v)) {
+        Boolean firstTime = true;
+        for (Position<E> w : T.children(v)) {
+            if (firstTime) {
+                s += "(\n" + parentheticRepresentation(T, w);
+                firstTime = false;
+            } else {
+                s += "," + parentheticRepresentation(T, w);
             }
+            s += ")";
         }
-        return s;
+    }
+    return s;
     }
 
     public int depth(LinkedTree T, TreeNode v) {

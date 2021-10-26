@@ -115,7 +115,16 @@ class LinkedTreeTest {
 
 
         TreeNode kaisa = new TreeNode("Kaisa", kass, null);
-        System.out.println(arvore.iterator().toString());
+
+        TreeNode raiz = (TreeNode) arvore.root();
+
+        raiz.setChildren((PositionList<Position>) (TreePosition)syndra);
+        raiz.setChildren((PositionList<Position>) (TreePosition)ryze);
+        raiz.setChildren((PositionList<Position>) (TreePosition)annie);
+        raiz.setChildren((PositionList<Position>) (TreePosition)kass);
+
+
+        System.out.println(raiz.getChildren());
     }
 
 }
