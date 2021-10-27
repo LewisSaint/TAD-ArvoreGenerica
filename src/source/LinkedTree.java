@@ -6,11 +6,11 @@ import exceptions.EmptyTreeException;
 import exceptions.InvalidPositionException;
 import exceptions.NonEmptyTreeException;
 import position.ElementIterator;
-import position.Position;
+import position.*;
 import position.NodePositionList;
 import position.PositionList;
 
-import static javafx.scene.input.KeyCode.T;
+
 
 //Um classe para a árvore ligada onde os nodos têm um número arbitrário de filhos.
 public class LinkedTree<E> implements Tree<E> {
@@ -125,9 +125,7 @@ public class LinkedTree<E> implements Tree<E> {
 
     // Cria uma lista armazenando os nodos das subárvore de um nodo
 // ordenado de acordo com a travessia das subárvores
-    protected void preorderPositions(Position<E> v, PositionList<Position<E>> pos) throws InvalidPositionException {
-        pos.addLast(v);
-    }
+
 
 
 
@@ -160,7 +158,7 @@ public class LinkedTree<E> implements Tree<E> {
     return s;
     }
 
-    public int depth(LinkedTree T, TreeNode v) {
+    public int depth(LinkedTree T, TreePosition v) {
         if (v == (TreeNode) T.root()) {return 0;}
 
         TreeNode w = (TreeNode) v.getParent();
@@ -168,16 +166,66 @@ public class LinkedTree<E> implements Tree<E> {
 
     }
 
-    public Object toStringPostorder(LinkedTree T, TreePosition v) {
-        Iterable w = T.positions();
-        for (Object pos : w) {
-
-
-        }
-    return v.element();
+    protected void preorderPositions(Position<E> v, PositionList<Position<E>> pos)
+            throws InvalidPositionException {
+        pos.addLast(v);
+        for (Object w : children(v)) preorderPositions((Position<E>) w, pos);
     }
 
 
+    public void preOrder(LinkedTree<String> T, TreeNode v) {
+        Position vv = checkPosition(v);
 
+        for (Position<String> w : T.root().getChildren()) {
+            preOrder(T, (TreeNode) w);
+        }
+    }
+
+    public String toStringPostorder(LinkedTree T, TreePosition v) {
+        String s = "";
+        for (Object w : children(v)) {
+            toStringPostorder(T, (TreePosition) w);
+
+        }
+
+        Position vv = checkPosition(v);
+        s += v.element().toString();
+        return s;
+    }
+
+
+    public int height1(LinkedTree T) {
+        int h = 0;
+
+        for (Object v : T.positions()) {
+            if (isExternal((TreePosition)v)) {
+                h = Math.max(h, depth(T, (TreePosition) v));
+            }
+
+        }
+
+
+
+        return h;
+    }
+
+
+    public int height2(LinkedTree T, TreePosition v) {
+
+        if (isExternal(v)) {
+            return 0;
+        }
+        int h = 0;
+        for (Object w : T.children(v)) {
+            h = Math.max(h, height2(T, (TreePosition) w));
+        }
+
+        return h + 1;
+    }
 
 }
+
+
+
+
+

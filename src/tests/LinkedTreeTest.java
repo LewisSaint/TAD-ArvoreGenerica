@@ -10,7 +10,8 @@ import source.TreeNode;
 import source.TreePosition;
 import position.NodePositionList;
 import position.PositionList;
-import sun.awt.windows.WPrinterJob;
+import java.lang.String;
+
 
 class LinkedTreeTest {
     @Test
@@ -23,8 +24,8 @@ class LinkedTreeTest {
         System.out.println(T.toStringPostorder(T, T.root()));
 
         assertFalse(T.isEmpty());
-        //assertEquals(4, T.height1(T), "Altura da Árvore T");
-        //assertEquals(4, T.height2(T, T.root()), "Altura da Árvore T");
+        assertEquals(4, T.height1(T), "Altura da Árvore T");
+        assertEquals(4, T.height2(T, T.root()), "Altura da Árvore T");
         assertEquals("[Eletronics R'Us, P&D, Vendas, Internacional, Canadá, América do Sul, "
                         + "Ultramar, África, Europa, Ásia, Austrália, Nacional, Compras, Manufatura, TV, CD, Tuner]",
                 T.toString(), "Pré-ordem da Árvore T ");
@@ -102,29 +103,5 @@ class LinkedTreeTest {
     }
 
 
-
-    @Test
-    public void testeEntendimento() {
-        LinkedTree arvore = new LinkedTree();
-        arvore.addRoot("Mago");
-
-        TreeNode syndra = new TreeNode("Syndra", arvore.root(), null);
-        TreeNode ryze = new TreeNode("Ryze", arvore.root(), null);
-        TreeNode annie = new TreeNode("Annie", arvore.root(), null);
-        TreeNode kass = new TreeNode("Kassadin", arvore.root(), null);
-
-
-        TreeNode kaisa = new TreeNode("Kaisa", kass, null);
-
-        TreeNode raiz = (TreeNode) arvore.root();
-
-        raiz.setChildren((PositionList<Position>) (TreePosition)syndra);
-        raiz.setChildren((PositionList<Position>) (TreePosition)ryze);
-        raiz.setChildren((PositionList<Position>) (TreePosition)annie);
-        raiz.setChildren((PositionList<Position>) (TreePosition)kass);
-
-
-        System.out.println(raiz.getChildren());
-    }
 
 }
